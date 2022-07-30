@@ -1,0 +1,194 @@
+<div class="card-body">
+    <div class="card-header text-center bg-primary" style="font-weight: bold">
+        <h2 class="text-white mt-2">
+            {{instance.product.name}}
+        </h2>
+    </div>
+    <div class="card-body">
+
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <tr>
+                    <td colspan="2">Name of Customer</td>
+                    <td colspan="3" class="text-center" style="font-weight: bold">{{instance.applicant.name}}</td>
+                </tr>
+                <tr>
+                    <td colspan="2">Address</td>
+                    <td colspan="3" class="text-center" style="font-weight: bold">{{instance.applicant.current_address}}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">Type of Financing</td>
+                    <td colspan="3" class="text-center" style="font-weight: bold">{{instance.product.name}}</td>
+                </tr>
+                <tr>
+                    <td colspan="2">Financing Amount</td>
+                    <td colspan="3" class="text-center" style="font-weight: bold">{{instance.financing_amount}}</td>
+                </tr>
+                <tr>
+                    <td colspan="2">Security Amount</td>
+                    <td colspan="3" class="text-center" style="font-weight: bold">{{instance.security_amount}}</td>
+                </tr>
+                <tr>
+                    <td colspan="2">Tenure (Number of Months)</td>
+                    <td colspan="3" class="text-center" style="font-weight: bold">{{instance.tenure}} months</td>
+                </tr>
+                <tr>
+                    <td colspan="2">Service Charges (%)</td>
+                    <td colspan="3" class="text-center" style="font-weight: bold">{{instance.rent}}%</td>
+                </tr>
+                <tr>
+                    <td colspan="2">Equal Monthly Installment (Rs.)</td>
+                    <td colspan="3" class="text-center" style="font-weight: bold">{{instance.emi}}</td>
+                </tr>
+                <tr style="font-weight: bold">
+                    <td>Month</td>
+                    <td>EMI</td>
+                    <td>Service Charges</td>
+                    <td>Principal Repayment</td>
+                    <td>Principal o/s</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>100,000</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>5,591</td>
+                    <td>2,500</td>
+                    <td>3,091</td>
+                    <td>96,909</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>5,591</td>
+                    <td>2,423</td>
+                    <td>3,169</td>
+                    <td>93,740</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>5,591</td>
+                    <td>2,344</td>
+                    <td>3,248</td>
+                    <td>90,492</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>5,591</td>
+                    <td>2,262</td>
+                    <td>3,329</td>
+                    <td>87,163</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>5,591</td>
+                    <td>2,179</td>
+                    <td>3,412</td>
+                    <td>83,751</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>5,591</td>
+                    <td>2,094</td>
+                    <td>3,498</td>
+                    <td>80,254</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>5,591</td>
+                    <td>2,006</td>
+                    <td>3,585</td>
+                    <td>76,669</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>5,591</td>
+                    <td>1,917</td>
+                    <td>3,675</td>
+                    <td>72,994</td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>5,591</td>
+                    <td>1,825</td>
+                    <td>3,766</td>
+                    <td>69,228</td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td>5,591</td>
+                    <td>1,731</td>
+                    <td>3,861</td>
+                    <td>65,367</td>
+                </tr>
+                <tr class="text-center" style="font-weight: bold">
+                    <td colspan="2">Principal Amount</td>
+                    <td colspan="3">100000</td>
+                </tr>
+                <tr class="text-center" style="font-weight: bold">
+                    <td colspan="2">Service Charges</td>
+                    <td colspan="3">100000</td>
+                </tr>
+                <tr class="text-center" style="font-weight: bold">
+                    <td colspan="2">Total Amount</td>
+                    <td colspan="3">100000</td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
+    <div class="card-header mt-3">
+        <h2 class="text-center">
+            Challans
+        </h2>
+    </div>
+    <div class="card-body">
+
+        {% if instance.challans.all|length %}
+
+
+        {% for i in instance.challans.all %}
+        <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>a</th>
+                                    <th>b</th>
+                                    <th>c</th>
+                                </tr>
+                            </thead>
+                        </table>
+
+
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                    data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        This is the first item's accordion body.
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+
+        {% else %}
+
+        <h4 class="text-center">
+            No challans found
+        </h4>
+
+        {% endif %}
+
+    </div>
+</div>

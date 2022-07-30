@@ -1,0 +1,1556 @@
+{% extends 'base.html' %} {% load static %} {% load crispy_forms_tags %} {% load crispy_forms_field %}
+{% block title %} {{instance.name|title}} {% endblock title %}
+
+
+{% block body %}
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0">{{instance.name|title}}</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'settings:dashboard' %}">Dashboard</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'applicants:applicants' %}">Applicants</a>
+                    </li>
+                    <li class="breadcrumb-item">{{instance.name|title}}</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    {% for message in messages %}
+    <div class="alert alert-{{message.tags}} mt-2" role="alert">
+        <strong>{{message}}</strong>
+    </div>
+    {% endfor %}
+
+</div>
+<!-- end page title -->
+
+
+
+<div class="mt-4">
+
+    <div class="profile-foreground position-relative mx-n4 mt-n4">
+        <div class="profile-wid-bg bg-primary">
+        </div>
+    </div>
+    <div class="pt-4 mb-4 mb-lg-3 pb-lg-4">
+        <div class="row g-4">
+            <div class="col-auto">
+                <div class="avatar-lg">
+                    <img src="{{instance.photo.url}}" alt="user-img" class="img-thumbnail rounded-circle" />
+                </div>
+            </div>
+            <!--end col-->
+            <div class="col">
+                <div class="p-2">
+                    <h3 class="text-white mb-1">{{instance.name}}</h3>
+                    <div class="hstack text-white-50 gap-1">
+                        <div class="me-2"><i
+                                class="ri-map-pin-user-line me-1 text-white-75 fs-16 align-middle"></i>{{instance.mailing_address}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!--end row-->
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div>
+                <div class="d-flex">
+
+                    <ul class="nav nav-pills profile-nav gap-2 gap-lg-3 flex-grow-1" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link fs-14" data-bs-toggle="tab" href="#overview-tab" role="tab"
+                                id="overview-btn">
+                                <i class="ri-airplay-fill d-inline-block d-md-none"></i> <span
+                                    class="d-none d-md-inline-block">Overview</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fs-14" data-bs-toggle="tab" href="#generalInfo" role="tab"
+                                id="generalInfo-btn">
+                                <i class="ri-list-unordered d-inline-block d-md-none"></i> <span
+                                    class="d-none d-md-inline-block">General Info</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fs-14" data-bs-toggle="tab" href="#security" role="tab"
+                                id="security-btn">
+                                <i class="ri-list-unordered d-inline-block d-md-none"></i> <span
+                                    class="d-none d-md-inline-block">Security</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fs-14" data-bs-toggle="tab" href="#guarantors" role="tab"
+                                id="guarantors-btn">
+                                <i class="ri-list-unordered d-inline-block d-md-none"></i> <span
+                                    class="d-none d-md-inline-block">Guarantors</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fs-14" data-bs-toggle="tab" href="#bankAccounts" role="tab"
+                                id="bankAccounts-btn">
+                                <i class="ri-list-unordered d-inline-block d-md-none"></i> <span
+                                    class="d-none d-md-inline-block">Bank Accounts</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fs-14" data-bs-toggle="tab" href="#products" role="tab"
+                                id="products-btn">
+                                <i class="ri-list-unordered d-inline-block d-md-none"></i> <span
+                                    class="d-none d-md-inline-block">Products</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fs-14" data-bs-toggle="tab" href="#challans" role="tab"
+                                id="challans-btn">
+                                <i class="ri-price-tag-line d-inline-block d-md-none"></i> <span
+                                    class="d-none d-md-inline-block">Challans</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+
+                <div class="tab-content pt-4 text-muted">
+
+
+                    <div class="tab-pane " id="overview-tab" role="tabpanel">
+                        <div class="row">
+                            <div class="col-xxl-3">
+
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title mb-3">Info</h5>
+                                        <div class="table-responsive">
+                                            <table class="table table-borderless mb-0">
+                                                <tbody>
+                                                    <tr>
+                                                        <th class="ps-0" scope="row">Full Name :</th>
+                                                        <td class="text-muted">{{instance.name|title}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th class="ps-0" scope="row">Mobile :</th>
+                                                        <td class="text-muted">{{instance.phone}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th class="ps-0" scope="row">E-mail :</th>
+                                                        <td class="text-muted">{{instance.email}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th class="ps-0" scope="row">Location :</th>
+                                                        <td class="text-muted">{{instance.current_address}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th class="ps-0" scope="row">Joining Date</th>
+                                                        <td class="text-muted">{{instance.doj}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div><!-- end card body -->
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center mb-4">
+                                            <div class="flex-grow-1">
+                                                <h5 class="card-title mb-0">Guarantors</h5>
+                                            </div>
+                                        </div>
+
+                                        {% if instance.applicant_guarantors.all|length %}
+
+                                        <div>
+                                            {% for i in instance.applicant_guarantor.all %}
+                                            <div class="d-flex align-items-center py-3">
+                                                <div class="avatar-xs flex-shrink-0 me-3">
+                                                    <img src="{{i.photo.url}}" alt="photo"
+                                                        class="img-fluid rounded-circle" />
+                                                </div>
+                                                <div class="flex-grow-1">
+                                                    <div>
+                                                        <h5 class="fs-14 mb-1">{{i.name}}</h5>
+                                                        <p class="fs-13 text-muted mb-0">{{i.relation}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+
+                                        </div>
+                                        {% else %}
+                                        <div class="card-header">
+                                            <h4 class="text-center">
+                                                No record found
+                                            </h4>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center mb-4">
+                                            <div class="flex-grow-1">
+                                                <h5 class="card-title mb-0">Bank Accounts</h5>
+                                            </div>
+                                        </div>
+
+                                        {% if instance.applicant_bank_accounts.all|length %}
+
+
+                                        {% for i in instance.applicant_bank_accounts.all %}
+                                        <div class="d-flex">
+                                            <div class="flex-grow-1 ms-3 overflow-hidden">
+                                                <a href="javascript:void(0);">
+                                                    <h3 class="text-truncate fs-14">{{i.name}}</h3>
+                                                </a>
+                                                <p class="text-muted mb-0"><strong>Branch:</strong> {{i.branch}}</p>
+                                                <p class="text-muted mb-0"><strong>Account Title:</strong>
+                                                    {{i.account_title}}</p>
+                                                <p class="text-muted mb-0"><strong>Account Number:</strong>
+                                                    {{i.account_number}}
+                                                </p>
+                                                <p class="text-muted mb-0"><strong>Opening Date:</strong>
+                                                    {{i.account_opening_date}}</p>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                    {% else %}
+                                    <div class="card-header">
+                                        <h4 class="text-center">
+                                            No record found
+                                        </h4>
+                                    </div>
+                                    {% endif %}
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title mb-3">Remarks</h5>
+
+                                    </div>
+                                    {% if instance.remarks %}
+                                    <p>{{instance.remarks}}</p>
+                                    {% else %}
+                                    <div class="card-header">
+                                        <h4 class="text-center">
+                                            No record found
+                                        </h4>
+                                    </div>
+                                    {% endif %}
+                                </div>
+
+                            </div>
+
+                            <div class="col-xxl-9">
+
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="card crm-widget">
+                                            <div class="card-body p-0">
+
+                                                <div class="row row-cols-xxl-4 row-cols-md-2 row-cols-1 g-0">
+
+                                                    <div class="col">
+                                                        <div class="py-4 px-3">
+                                                            <h5 class="text-muted text-uppercase fs-13">Total Products
+                                                            </h5>
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="flex-shrink-0">
+                                                                    <i
+                                                                        class="ri-shopping-cart-2-line display-6 text-muted"></i>
+                                                                </div>
+                                                                <div class="flex-grow-1 ms-3">
+                                                                    <h2 class="mb-0"><span class="counter-value"
+                                                                            data-target="197">0</span></h2>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col">
+                                                        <div class="mt-3 mt-md-0 py-4 px-3">
+                                                            <h5 class="text-muted text-uppercase fs-13">Total Payable
+                                                                Amount
+                                                            </h5>
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="flex-shrink-0">
+                                                                    <i
+                                                                        class="ri-exchange-dollar-line display-6 text-muted"></i>
+                                                                </div>
+                                                                <div class="flex-grow-1 ms-3">
+                                                                    <h2 class="mb-0">Rs<span class="counter-value"
+                                                                            data-target="489.4">0</span>k</h2>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col">
+                                                        <div class="mt-3 mt-lg-0 py-4 px-3">
+                                                            <h5 class="text-muted text-uppercase fs-13">Total
+                                                                Paid Amount
+                                                            </h5>
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="flex-shrink-0">
+                                                                    <i
+                                                                        class="ri-check-double-fill display-6 text-muted"></i>
+                                                                </div>
+                                                                <div class="flex-grow-1 ms-3">
+                                                                    <h2 class="mb-0">Rs<span class="counter-value"
+                                                                            data-target="1596.5">0</span></h2>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col">
+                                                        <div class="mt-3 mt-md-0 py-4 px-3">
+                                                            <h5 class="text-muted text-uppercase fs-13">Total Pending
+                                                                Amount
+                                                            </h5>
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="flex-shrink-0">
+                                                                    <i
+                                                                        class="ri-secure-payment-fill display-6 text-muted"></i>
+                                                                </div>
+                                                                <div class="flex-grow-1 ms-3">
+                                                                    <h2 class="mb-0">Rs<span class="counter-value"
+                                                                            data-target="1000">1000</span></h2>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title mb-4">Products</h5>
+
+                                        {% if instance.applicant_products.all|length %}
+
+                                        <div class="row row-cols-xxl-3 row-cols-lg-2 row-cols-2">
+
+
+                                            {% for i in instance.applicant_products.all %}
+
+                                            <div class="col">
+                                                <div class="card card-body">
+                                                    <h5 class="card-title mb-1">{{i.product.name}}</h5>
+                                                    <p class="text-muted mb-0"><strong>Price: </strong>
+                                                        {{i.product.price}}
+                                                    </p>
+                                                    <p class="text-muted mb-0"><strong>Financing Amount: </strong>
+                                                        {{i.financing_amount}}
+                                                    </p>
+                                                    <p class="text-muted mb-0"><strong>Security Amount:
+                                                        </strong>{{i.security_amount}}</p>
+                                                    <p class="text-muted mb-0"><strong>Tenure: </strong>{{i.tenure}}
+                                                    </p>
+                                                    <p class="text-muted mb-0"><strong> Rent: </strong>{{i.rent}}%</p>
+
+                                                    <div class="d-grid mt-3 gap-2">
+                                                        <a type="button" data-bs-toggle="offcanvas"
+                                                            data-bs-target="#editProduct" aria-controls="editProduct"
+                                                            class="btn btn-success btn-sm bank-account-update-button"
+                                                            data-id="{{i.id}}">
+
+                                                            <i class="ri-information-line"></i>&nbsp Info
+                                                        </a>
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+
+                                        {% else %}
+                                        <div class="card-header">
+                                            <h4 class="text-center">
+                                                No record found
+                                            </h4>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="col-md-12">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5 class="card-title mb-4">Challans</h5>
+                                                <table class="table table-striped table-inverse table-responsive">
+                                                    <thead class="thead-inverse">
+                                                        <tr>
+                                                            <th>1</th>
+                                                            <th>2</th>
+                                                            <th>3</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td scope="row">1</td>
+                                                            <td>2</td>
+                                                            <td>3</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td scope="row">1</td>
+                                                            <td>2</td>
+                                                            <td>3</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="generalInfo" role="tabpanel">
+
+                        <div class="row">
+                            <form method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-body p-4">
+                                            <div>
+                                                <div class="row">
+                                                    <div class="col-lg-4">
+                                                        {{general_info_form.status|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        {{general_info_form.refrence_number|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        {{general_info_form.salutation|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        {{general_info_form.name|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        {{general_info_form.father_husband_name|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        {{general_info_form.mother_name|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        {{general_info_form.cnic|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        {{general_info_form.dob|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        {{general_info_form.gender|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        {{general_info_form.marital_status|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        {{general_info_form.phone|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        {{general_info_form.whatsapp|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        {{general_info_form.email|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        {{general_info_form.education|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        {{general_info_form.education_institute|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        {{general_info_form.education_verification|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        {{general_info_form.job_status|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        {{general_info_form.residence_status|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        {{general_info_form.monthly_rent|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-lg-10">
+                                                        {{general_info_form.mailing_address|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        {{general_info_form.residing_duration|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        {{general_info_form.current_address|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        {{general_info_form.profession|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        {{general_info_form.organization|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        {{general_info_form.organization_type|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        {{general_info_form.doj|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        {{general_info_form.experience|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        {{general_info_form.monthly_income|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        {{general_info_form.office_phone|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        {{general_info_form.office_email|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        {{general_info_form.office_address|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-lg-3">
+                                                        {{general_info_form.previous_loan|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-lg-3">
+                                                        {{general_info_form.previous_loan_deduction|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-lg-3">
+                                                        {{general_info_form.monthly_other_income|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-lg-3">
+                                                        {{general_info_form.monthly_expense|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        {{general_info_form.remarks|as_crispy_field}}
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        {{general_info_form.photo|as_crispy_field}}
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="d-flex align-items-start gap-3 mt-4">
+                                                <button type="submit" class="btn btn-success right ms-auto"
+                                                    name="generalInfo">Save</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+
+                    <div class="tab-pane" id="security" role="tabpanel">
+
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <form method="POST">
+                                    {% csrf_token %}
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title mb-4">Reset Password</h5>
+
+                                            <div class="mb-3">
+                                                <label for="newpasswordInput" class="form-label">New Password*</label>
+                                                <input type="password" class="form-control" id="newpasswordInput"
+                                                    placeholder="Enter new password" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="confirmpasswordInput" class="form-label">Confirm
+                                                    Password*</label>
+                                                <input type="password" class="form-control" id="confirmpasswordInput"
+                                                    placeholder="Confirm password" name="password" required>
+                                                <small id="errorMsg" class="text-danger"></small>
+                                            </div>
+                                            <div class="text-end">
+                                                <button type="submit" class="btn btn-success" name="passwordReset"
+                                                    id="passwordChangeSubmitButton" disabled>Reset
+                                                    Password</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="col-md-8">
+
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title mb-4">Login History</h5>
+
+                                        <div class="d-flex align-items-center mb-3">
+                                            <div class="flex-shrink-0 avatar-sm">
+                                                <div class="avatar-title bg-light text-primary rounded-3 fs-18">
+                                                    <i class="ri-smartphone-line"></i>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1 ms-3">
+                                                <h6>iPhone 12 Pro</h6>
+                                                <p class="text-muted mb-0">Los Angeles, United States - March 16 at
+                                                    2:47PM</p>
+                                            </div>
+                                            <div>
+                                                <a href="javascript:void(0);">Logout</a>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <div class="flex-shrink-0 avatar-sm">
+                                                <div class="avatar-title bg-light text-primary rounded-3 fs-18">
+                                                    <i class="ri-tablet-line"></i>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1 ms-3">
+                                                <h6>Apple iPad Pro</h6>
+                                                <p class="text-muted mb-0">Washington, United States - November 06 at
+                                                    10:43AM</p>
+                                            </div>
+                                            <div>
+                                                <a href="javascript:void(0);">Logout</a>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <div class="flex-shrink-0 avatar-sm">
+                                                <div class="avatar-title bg-light text-primary rounded-3 fs-18">
+                                                    <i class="ri-smartphone-line"></i>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1 ms-3">
+                                                <h6>Galaxy S21 Ultra 5G</h6>
+                                                <p class="text-muted mb-0">Conneticut, United States - June 12 at 3:24PM
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <a href="javascript:void(0);">Logout</a>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-shrink-0 avatar-sm">
+                                                <div class="avatar-title bg-light text-primary rounded-3 fs-18">
+                                                    <i class="ri-macbook-line"></i>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1 ms-3">
+                                                <h6>Dell Inspiron 14</h6>
+                                                <p class="text-muted mb-0">Phoenix, United States - July 26 at 8:10AM
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <a href="javascript:void(0);">Logout</a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="guarantors" role="tabpanel">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <div class="justify-content-between d-flex align-items-center mb-4">
+                                    <h5 class="mb-0 pb-1 ">Guarantors</h5>
+
+                                    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas"
+                                        data-bs-target="#addGuarantor" aria-controls="addGuarantor"><i
+                                            class="ri-add-circle-line"></i> Add New
+                                    </button>
+                                </div>
+
+                                {% if instance.applicant_guarantor.all|length %}
+                                <div class="row row-cols-xxl-5 row-cols-lg-3 row-cols-2">
+
+                                    {% for i in instance.applicant_guarantor.all %}
+                                    <div class="col">
+                                        <div class="card card-body shadow-lg">
+                                            <div class="d-flex mb-4 align-items-center">
+                                                <div class="flex-shrink-0">
+                                                    <img src="{{i.photo.url}}" alt=""
+                                                        class="avatar-sm rounded-circle" />
+                                                </div>
+                                                <div class="flex-grow-1 ms-2">
+                                                    <h5 class="card-title mb-1">{{i.name}}</h5>
+                                                    <p class="text-muted mb-0">{{i.relation}}</p>
+                                                </div>
+                                            </div>
+                                            <h6 class="mb-3">{{i.address}}, {{i.city}}</h6>
+
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <div class="d-grid gap-2">
+                                                        <a type="button" data-bs-toggle="offcanvas"
+                                                            data-bs-target="#viewGuarantor"
+                                                            aria-controls="viewGuarantor"
+                                                            class="btn btn-success btn-sm guarantor-detail-button"
+                                                            data-name="{{i.name}}" data-relation="{{i.relation}}"
+                                                            data-cnic="{{i.cnic}}" data-phone="{{i.phone}}"
+                                                            data-whatsapp="{{i.whatsapp}}" data-email="{{i.email}}"
+                                                            data-city="{{i.city}}" data-address="{{i.address}}"
+                                                            data-years="{{i.years_known}}" data-photo="{{i.photo.url}}"
+                                                            data-cnic1="{{i.cnic_photo_front.url}}"
+                                                            data-cnic2="{{i.cnic_photo_back.url}}">
+                                                            <i class="ri-eye-line"></i></a>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-4">
+                                                    <div class="d-grid">
+                                                        <a type="button" data-bs-toggle="offcanvas"
+                                                            data-bs-target="#editGuarantor"
+                                                            aria-controls="editGuarantor"
+                                                            class="btn btn-primary btn-sm guarantor-update-button"
+                                                            data-id="{{i.id}}">
+                                                            <i class="ri-ball-pen-line"></i></a>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-4">
+                                                    <div class="d-grid">
+                                                        <a type="button" data-bs-toggle="modal"
+                                                            data-bs-target="#deleteGuarantor"
+                                                            class="btn btn-danger btn-sm guarantor-delete-button"
+                                                            data-id="{{i.id}}">
+                                                            <i class="ri-delete-bin-5-line"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+
+                                </div>
+
+                                {% else %}
+
+                                <div class="card-header mt-3 mb-3">
+                                    <h4 class="text-center">No record found</h4>
+                                </div>
+
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="tab-pane" id="bankAccounts" role="tabpanel">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <div class="justify-content-between d-flex align-items-center mb-4">
+                                    <h5 class="mb-0 pb-1 ">Bank Accounts</h5>
+
+                                    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas"
+                                        data-bs-target="#addBankAccount" aria-controls="addBankAccount"><i
+                                            class="ri-add-circle-line"></i> Add New
+                                    </button>
+                                </div>
+
+                                {% if instance.applicant_bank_accounts.all|length %}
+                                <div class="row row-cols-xxl-5 row-cols-lg-3 row-cols-2">
+
+
+                                    {% for i in instance.applicant_bank_accounts.all %}
+                                    <div class="col">
+                                        <div class="card card-body shadow-lg">
+                                            <h5 class="card-title mb-1">{{i.name}}</h5>
+                                            <p class="text-muted mb-0">{{i.branch}} <span
+                                                    class="badge bg-primary">{{i.get_account_type_display}}</span>
+                                            </p>
+                                            <p class="text-muted mb-0">{{i.account_title}}</p>
+                                            <p class="text-muted mb-0">{{i.account_number}}</p>
+                                            <p class="text-muted mb-0">{{i.account_opening_date}}</p>
+
+                                            <div class="row mt-3">
+                                                <div class="col-sm-6">
+                                                    <div class="d-grid">
+                                                        <a type="button" data-bs-toggle="offcanvas"
+                                                            data-bs-target="#editBankAccount"
+                                                            aria-controls="editBankAccount"
+                                                            class="btn btn-primary btn-sm bank-account-update-button"
+                                                            data-id="{{i.id}}">
+
+                                                            <i class="ri-ball-pen-line"></i></a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="d-grid">
+                                                        <a type="button" data-bs-toggle="modal"
+                                                            data-bs-target="#deleteBankAccount"
+                                                            class="btn btn-danger btn-sm bank-account-delete-button"
+                                                            data-id="{{i.id}}">
+                                                            <i class="ri-delete-bin-5-line"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+
+
+
+                                </div>
+                                {% else %}
+                                <div class="card-header mt-3 mb-3">
+                                    <h4 class="text-center">No record found</h4>
+                                </div>
+                                {% endif %}
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="products" role="tabpanel">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <div class="justify-content-between d-flex align-items-center mb-4">
+                                    <h5 class="mb-0 pb-1 ">Products</h5>
+
+                                    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas"
+                                        data-bs-target="#addProduct" aria-controls="addProduct"><i
+                                            class="ri-add-circle-line"></i> Add New
+                                    </button>
+                                </div>
+
+
+                                {% if instance.applicant_products.all|length %}
+
+                                <div class="row row-cols-xxl-5 row-cols-lg-3 row-cols-2">
+
+
+                                    {% for i in instance.applicant_products.all %}
+
+                                    <div class="col">
+                                        <div class="card card-body shadow-lg">
+                                            <h5 class="card-title mb-1">{{i.product.name}}</h5>
+                                            <p class="text-muted mb-0"><strong>Price: </strong>
+                                                {{i.product.price}}
+                                            </p>
+                                            <p class="text-muted mb-0"><strong>Financing Amount: </strong>
+                                                {{i.financing_amount}}
+                                            </p>
+                                            <p class="text-muted mb-0"><strong>Security Amount:
+                                                </strong>{{i.security_amount}}</p>
+                                            <p class="text-muted mb-0"><strong>Tenure: </strong>{{i.tenure}}
+                                            </p>
+                                            <p class="text-muted mb-0"><strong> Rent: </strong>{{i.rent}}%</p>
+                                            <p class="text-muted mb-0"><strong> Equal Monthly Installment:
+                                                </strong>{{i.emi}}</p>
+
+                                            <div class="d-grid mt-3 gap-2">
+                                                <a type="button" data-bs-toggle="modal"
+                                                    data-bs-target="#productDetailModal"
+                                                    class="btn btn-success btn-sm product-detail-button"
+                                                    data-id="{{i.id}}">
+                                                    Details
+                                                </a>
+                                                <a type="button" data-bs-toggle="modal" data-bs-target="#deleteProduct"
+                                                    aria-controls="deleteProduct"
+                                                    class="btn btn-danger btn-sm delete-product-button"
+                                                    data-id="{{i.id}}">Delete
+                                                </a>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+
+                                {% else %}
+
+                                <h2 class="text-center mt-5 mb-5">No data found</h2>
+
+                                {% endif %}
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="challans" role="tabpanel">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <div class="justify-content-between d-flex align-items-center mb-4">
+                                    <h5 class="mb-0 pb-1 ">Challans</h5>
+
+                                    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas"
+                                        data-bs-target="#addChallan" aria-controls="addChallan"><i
+                                            class="ri-add-circle-line"></i> Add New
+                                    </button>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-12">
+
+                                        {% if instance.challans_by_applicant.all|length %}
+
+                                        <div class="table-responsive">
+                                            <table class="table table-borderless align-middle mb-0">
+                                                <thead class="table-light">
+                                                    <tr>
+                                                        <th scope="col">Product</th>
+                                                        <th scope="col">Challan Number</th>
+                                                        <th scope="col">Total</th>
+                                                        <th scope="col">Due Date</th>
+                                                        <th scope="col">Status</th>
+                                                        <th scope="col">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                    {% for i in instance.challans_by_applicant.all reversed %}
+
+                                                    <tr>
+                                                        <td>
+                                                            {{i.product.product.name}}
+                                                        </td>
+                                                        <td>{{i.challan_number}}</td>
+                                                        <td>{{i.payable_till_due_date}}</td>
+                                                        <td>{{i.due_date}}</td>
+                                                        <td>
+                                                            {% if i.status == 1 %}
+                                                            <span
+                                                                class="badge bg-warning">{{i.get_status_display}}</span>
+                                                            {% elif i.status == 2 %}
+                                                            <span
+                                                                class="badge bg-success">{{i.get_status_display}}</span>
+                                                            {% else %}
+                                                            <span
+                                                                class="badge bg-danger">{{i.get_status_display}}</span>
+                                                            {% endif %}
+                                                        </td>
+                                                        <td>
+                                                            <a type="button" data-bs-toggle="offcanvas"
+                                                                data-bs-target="#updateChallan"
+                                                                aria-controls="updateChallan"
+                                                                class="text-success applicant-product-challan-update-btn"
+                                                                data-challan="{{i.challan_number}}">
+                                                                <i class="ri-ball-pen-line mr-1"></i>
+                                                            </a>
+
+                                                            <a type="button" data-bs-toggle="modal"
+                                                                data-bs-target="#deleteChallan"
+                                                                aria-controls="deleteChallan"
+                                                                class="text-danger mr-1 delete-challan-button"
+                                                                data-id="{{i.id}}"><i class="ri-delete-bin-line"></i>
+                                                            </a>
+
+                                                            <a href="{% url 'finance:print-challan' i.challan_number %}"
+                                                                target="_blank"><i class="ri-printer-line"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        {% else %}
+
+                                        <h4 class="text-center mt-3 mb-3">No challan found</h4>
+
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+<div id="offcanvases">
+    <!-- add Guarantor canvas -->
+    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="addGuarantor"
+        aria-labelledby="addGuarantorLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="addGuarantorLabel">Add Guarantor</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="modal-body">
+
+                    {{guarantor_form|crispy}}
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="offcanvas">Close</button>
+                    <button type="submit" class="btn btn-primary" name="addGuarantor">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- update guarantor canvas -->
+    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="editGuarantor"
+        aria-labelledby="editGuarantorLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="editGuarantorLabel">Update Guarantor</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body" id="guarantor-update-view">
+
+        </div>
+    </div>
+
+    <!-- View Guarantor canvas -->
+    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="viewGuarantor"
+        aria-labelledby="viewGuarantorLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="viewGuarantorLabel">Guarantor Name</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body" id="guarantor-profile-view">
+
+        </div>
+    </div>
+
+    <!-- delete guarantor Modal -->
+    <div class="modal fade" id="deleteGuarantor" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        role="dialog" aria-labelledby="deleteGuarantorLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body text-center p-5">
+                    <lord-icon src="https://cdn.lordicon.com/vyukcgvf.json" trigger="hover"
+                        colors="outline:#121331,primary:#ee6d66,secondary:#ffffff" style="width:250px;height:250px">
+                    </lord-icon>
+
+                    <div class="mt-4">
+                        <h4 class="mb-3">Are you sure to delete this?</h4>
+                        <p class="text-muted mb-4">You won't be able to revert this!</p>
+                        <div class="hstack gap-2 justify-content-center">
+                            <a href="javascript:void(0);" class="btn btn-link link-success fw-medium"
+                                data-bs-dismiss="modal"><i class="ri-close-line me-1 align-middle"></i> Cancel</a>
+                            <a href="#" class="btn btn-danger" id="guarantor-delete-model-href"><i
+                                    class="ri-delete-bin-5-line"></i>&nbsp Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- add bank account canvas -->
+    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="addBankAccount"
+        aria-labelledby="addBankAccountLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="addBankAccountLabel">Add Bank Account</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="modal-body">
+
+                    {{account_form|crispy}}
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="offcanvas">Close</button>
+                    <button type="submit" class="btn btn-primary" name="addBankAccount">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- update bank account canvas -->
+    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="editBankAccount"
+        aria-labelledby="editBankAccountLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="editBankAccountLabel">Update Bank Account</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body" id="bank-account-update-view">
+
+        </div>
+    </div>
+
+    <!-- delete bank account Modal -->
+    <div class="modal fade" id="deleteBankAccount" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        role="dialog" aria-labelledby="deleteBankAccountLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body text-center p-5">
+                    <lord-icon src="https://cdn.lordicon.com/vyukcgvf.json" trigger="hover"
+                        colors="outline:#121331,primary:#ee6d66,secondary:#ffffff" style="width:250px;height:250px">
+                    </lord-icon>
+
+                    <div class="mt-4">
+                        <h4 class="mb-3">Are you sure to delete this?</h4>
+                        <p class="text-muted mb-4">You won't be able to revert this!</p>
+                        <div class="hstack gap-2 justify-content-center">
+                            <a href="javascript:void(0);" class="btn btn-link link-success fw-medium"
+                                data-bs-dismiss="modal"><i class="ri-close-line me-1 align-middle"></i> Cancel</a>
+                            <a href="" class="btn btn-danger" id="bank-account-delete-model-href"><i
+                                    class="ri-delete-bin-5-line"></i>&nbsp Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- add product canvas -->
+    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="addProduct"
+        aria-labelledby="addProductLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="addProductLabel">Add Product</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="modal-body">
+
+                    {{product_form.product|as_crispy_field}}
+                    {{product_form.financing_mode|as_crispy_field}}
+                    {{product_form.financing_amount|as_crispy_field}}
+                    {{ product_form.security_amount|as_crispy_field }}
+                    {% crispy_addon product_form.tenure append="Months" %}
+                    {% crispy_addon product_form.rent append="%" %}
+                    {{product_form.installment_start_date|as_crispy_field}}
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="offcanvas">Close</button>
+                    <button type="submit" class="btn btn-primary" name="addProduct">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!--product detail model -->
+    <div id="productDetailModal" class="modal fade" tabindex="-1" aria-labelledby="productDetailModalLabel"
+        aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="productDetailModalLabel">Product Detail</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
+                </div>
+                <div class="modal-body" id="applicant-product-detail-view">
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- delete product Modal -->
+    <div class="modal fade" id="deleteProduct" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        role="dialog" aria-labelledby="deleteProductLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body text-center p-5">
+                    <lord-icon src="https://cdn.lordicon.com/vyukcgvf.json" trigger="hover"
+                        colors="outline:#121331,primary:#ee6d66,secondary:#ffffff" style="width:250px;height:250px">
+                    </lord-icon>
+
+                    <div class="mt-4">
+                        <h4 class="mb-3">Are you sure to delete this?</h4>
+                        <p class="text-muted mb-4">You won't be able to revert this!</p>
+                        <div class="hstack gap-2 justify-content-center">
+                            <a href="javascript:void(0);" class="btn btn-link link-success fw-medium"
+                                data-bs-dismiss="modal"><i class="ri-close-line me-1 align-middle"></i> Cancel</a>
+                            <a href="" class="btn btn-danger" id="product-delete-model-href"><i
+                                    class="ri-delete-bin-5-line"></i>&nbsp Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- add challan canvas -->
+    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="addChallan"
+        aria-labelledby="addChallanLabel" style="width: 100vh">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="addChallanLabel">Add Challan</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="" class="form-label">Product*</label>
+                                <select class="form-control" name="product" id="add_challan_id_product" required>
+
+                                    <option value="">----------</option>
+                                    {% for i in instance.applicant_products.all %}
+                                    <option value="{{i.id}}">{{i.product.name}}</option>
+                                    {% endfor %}
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="" class="form-label">Due Date*</label>
+                                <input type="date" name="due_date" id="id_due_date" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-header mb-3 mt-3" id="create-challan-card-header" style="display: none">
+                        <h4 class="text-center">
+                            Challan Detail
+                        </h4>
+                    </div>
+                    <div class="row" id="create-challan-details"> </div>
+
+                </div>
+                <div class=" modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="offcanvas">Close</button>
+                    <button type="submit" class="btn btn-primary" name="addChallan">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- update challan canvas -->
+    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="updateChallan"
+        aria-labelledby="updateChallanLabel" style="width: 100vh">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="updateChallanLabel">Update Challan</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body" id="update-applicant-product-challan-view">
+
+        </div>
+    </div>
+
+    <!-- delete challan Modal -->
+    <div class="modal fade" id="deleteChallan" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        role="dialog" aria-labelledby="deleteChallanLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body text-center p-5">
+                    <lord-icon src="https://cdn.lordicon.com/vyukcgvf.json" trigger="hover"
+                        colors="outline:#121331,primary:#ee6d66,secondary:#ffffff" style="width:250px;height:250px">
+                    </lord-icon>
+
+                    <div class="mt-4">
+                        <h4 class="mb-3">Are you sure to delete this?</h4>
+                        <p class="text-muted mb-4">You won't be able to revert this!</p>
+                        <div class="hstack gap-2 justify-content-center">
+                            <a href="javascript:void(0);" class="btn btn-link link-success fw-medium"
+                                data-bs-dismiss="modal"><i class="ri-close-line me-1 align-middle"></i> Cancel</a>
+                            <a href="" class="btn btn-danger" id="challan-delete-model-href"><i
+                                    class="ri-delete-bin-5-line"></i>&nbsp Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $('#generalInfo').click();
+        var active_div = '{{active_div}}';
+
+        if (active_div != "None") {
+            $("#" + active_div + "-btn").addClass("active");
+            $("#" + active_div).addClass("active");
+        } else {
+            $('#overview-btn').addClass("active");
+            $('#overview-tab').addClass("active");
+        };
+    });
+
+
+    $('#confirmpasswordInput').on('input', function () {
+        var password2 = $(this).val();
+        var password1 = $('#newpasswordInput').val()
+
+        if (password2 == password1) {
+            $('#passwordChangeSubmitButton').prop('disabled', false)
+            $('#errorMsg').html("")
+        } else {
+            $('#errorMsg').html("Password don't match")
+        }
+    });
+
+
+    $('.guarantor-detail-button').on('click', function () {
+        var name = $(this).data('name')
+        var relation = $(this).data('relation')
+        var cnic = $(this).data('cnic')
+        var phone = $(this).data('phone')
+        var whatsapp = $(this).data('whatsapp')
+        var email = $(this).data('email')
+        var address = $(this).data('address')
+        var city = $(this).data('city')
+        var years = $(this).data('years')
+        var photo = $(this).data('photo')
+        var cnicFront = $(this).data('cnic1')
+        var cnicBack = $(this).data('cnic2')
+
+
+        $('#viewGuarantorLabel').html(name)
+        $('#guarantor-profile-view').html(
+            `<div class="card-body">
+    <div class="d-flex flex-column align-items-center text-center">
+        <img src="${photo}" alt="photo" class="rounded-circle p-1" width="110">
+        <div class="mt-3">
+            <h4>${name}</h4>
+            <p class="text-secondary mb-1">${relation}</p>
+        </div>
+    </div>
+    <hr class="my-4">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+            <h6 class="mb-0">CNIC</h6>
+            <span class="text-secondary">${cnic}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+            <h6 class="mb-0">Phone</h6>
+            <span class="text-secondary">${phone}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+            <h6 class="mb-0">Whatsapp</h6>
+            <span class="text-secondary">${whatsapp}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+            <h6 class="mb-0">Email</h6>
+            <span class="text-secondary">${email}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+            <h6 class="mb-0">City</h6>
+            <span class="text-secondary">${city}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+            <h6 class="mb-0">Address</h6>
+            <span class="text-secondary">${address}</span>
+        </li>
+    </ul>
+    <div class="d-flex flex-column align-items-center">
+        <h6 class="mb-2">CNIC Front</h6>
+        <img src="${cnicFront}" alt="cnic front" class="p-1 mb-3" width="200">
+        <h6 class="mb-2">CNIC Back</h6>
+        <img src="${cnicBack}" alt="cnic back" class="p-1" width="200">
+    </div>
+</div>`
+        )
+    });
+
+
+    $('.guarantor-update-button').on('click', function () {
+        var id = $(this).data('id')
+
+        data = {
+            id: id
+        }
+
+        $.ajax({
+            url: "{% url 'applicants:edit-applicant-guarantor' %}",
+            data: data,
+
+            success: function (data) {
+                $('#guarantor-update-view').html(data)
+            }
+        })
+
+
+    });
+
+
+    $('.guarantor-delete-button').on('click', function () {
+        var id = $(this).data('id')
+        var url = '/delete-applicant-guarantor/' + id
+        $('#guarantor-delete-model-href').attr('href', url)
+    });
+
+
+    $('.bank-account-update-button').on('click', function () {
+        var id = $(this).data('id')
+
+        data = {
+            id: id
+        }
+
+        $.ajax({
+            url: "{% url 'applicants:edit-applicant-bank-account' %}",
+            data: data,
+
+            success: function (data) {
+                console.log('Working')
+                $('#bank-account-update-view').html(data)
+            }
+        })
+    });
+
+
+    $('.bank-account-delete-button').on('click', function () {
+        var id = $(this).data('id')
+        var url = '/delete-applicant-bank-account/' + id
+        $('#bank-account-delete-model-href').attr('href', url)
+    });
+
+
+    $('.product-detail-button').on('click', function () {
+        var id = $(this).data('id')
+
+        data = {
+            id: id
+        }
+
+        $.ajax({
+            url: "{% url 'applicants:applicant-product-detail' %}",
+            data: data,
+
+            success: function (data) {
+
+                $('#applicant-product-detail-view').html(data)
+            }
+        })
+
+    });
+
+
+    $('.delete-product-button').on('click', function () {
+        var id = $(this).data('id')
+        var url = '/delete-applicant-product/' + id
+        $('#product-delete-model-href').attr('href', url)
+    });
+
+
+    $('.applicant-product-challan-update-btn').on('click', function () {
+        var challan_number = $(this).data('challan')
+
+        data = {
+            challan_number: challan_number
+        }
+
+        $.ajax({
+            url: "{% url 'applicants:update-applicant-product-challan' %}",
+            data: data,
+
+            success: function (data) {
+
+                $('#update-applicant-product-challan-view').html(data)
+            }
+        })
+
+    });
+
+    $('.delete-challan-button').on('click', function () {
+        var id = $(this).data('id')
+        var url = '/delete-applicant-product-challan/' + id
+        $('#challan-delete-model-href').attr('href', url)
+    });
+
+
+
+    $('#add_challan_id_product').on('change', function () {
+        var id = $(this).val();
+
+
+        data = {
+            id: id,
+        }
+
+        $.ajax({
+            url: "{% url 'finance:get-challan-detail-on-creation-ajax' %}",
+            data: data,
+
+            success: function (data) {
+                $('#create-challan-details').html(data);
+                $('#create-challan-card-header').show()
+
+                var previous_outstanding = $('#id_previous_outstanding_amount').val();
+                var emi = $('#id_equal_monthly_installment').val();
+                var rent = $('#id_rent_product').val() / 100;
+                var tenure = $('#id_tenure_product').val();
+
+                var service_charges = rent / 12 * previous_outstanding
+
+                var principal_repayment = emi - service_charges
+
+                var principal_outstanding = previous_outstanding - principal_repayment
+
+                $('#id_service_charges').val(service_charges)
+                $('#id_principal_repayment').val(principal_repayment)
+                $('#id_principal_outstanding_amount').val(principal_outstanding)
+
+                $('#id_equal_monthly_installment').on('input', function () {
+
+                    var previous_outstanding = $('#id_previous_outstanding_amount').val();
+                    var emi = $('#id_equal_monthly_installment').val();
+                    var rent = $('#id_rent_product').val() / 100;
+                    var tenure = $('#id_tenure_product').val();
+
+                    var service_charges = rent / 12 * previous_outstanding
+
+                    var principal_repayment = emi - service_charges
+
+                    var principal_outstanding = previous_outstanding - principal_repayment
+
+                    $('#id_service_charges').val(service_charges)
+                    $('#id_principal_repayment').val(principal_repayment)
+                    $('#id_principal_outstanding_amount').val(principal_outstanding)
+
+                })
+
+            }
+        });
+
+    });
+</script>
+
+{% endblock body %}

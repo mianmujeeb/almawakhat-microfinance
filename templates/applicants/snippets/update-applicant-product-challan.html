@@ -1,0 +1,41 @@
+{% load crispy_forms_tags %}
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="modal-body">
+
+        <input type="hidden" name="challan_id" value="{{challan.id}}">
+        <div class="row">
+            <div class="col-md-6">
+                {{form.status|as_crispy_field}}
+            </div>
+            <div class="col-md-6">
+                {{form.due_date|as_crispy_field}}
+            </div>
+        </div>
+        <div class="card-header">
+            <h4 class="text-center">
+                Challan Detail
+            </h4>
+        </div>
+        <div class="row">
+
+            {% for i in challan.challan_details.all %}
+
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="" class="form-label">{{i.particular}}</label>
+                    <input type="text" name="{{i.particular.name}}" id="id_{{i.name}}" class="form-control"
+                        value="{{i.amount}}">
+                </div>
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+    <div class=" modal-footer">
+        <button type="button" class="btn btn-light" data-bs-dismiss="offcanvas">Close</button>
+        <button type="submit" class="btn btn-primary" name="updateChallan">Save</button>
+    </div>
+</form>

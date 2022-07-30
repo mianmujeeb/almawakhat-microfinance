@@ -1,0 +1,94 @@
+{% extends 'base.html' %} {% load static %} {% load crispy_forms_tags %}
+{% block title %} Applicants {% endblock title %}
+
+
+{% block body %}
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0">Applicants</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'settings:dashboard' %}">Dashboard</a>
+                    </li>
+                    <li class="breadcrumb-item active">Applicants</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+{% for message in messages %}
+<div class=" alert alert-{{message.tags}} mb-3" role="alert">
+    <strong>{{message}}</strong>
+</div>
+{% endfor %}
+
+
+<div class="row">
+    <div class="card">
+        <div class="card-header d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0">Applicants</h4>
+            <a href="{% url 'applicants:add-applicant-1' %}" class="btn btn-primary">
+                <i class="ri-add-circle-line"></i>&nbsp Add New
+            </a>
+        </div>
+
+        <div class="card-body mt-3">
+            {% if applicants|length %}
+
+            <div class=" table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Status</th>
+                            <th class="text-center">Options</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in applicants %}
+                        <tr>
+                            <td scope="row">{{forloop.counter}}</td>
+                            <td><a href="{% url 'applicants:edit-applicant' i.id %}" class="text-dark"> {{i.name}} </a>
+                            </td>
+                            <td>
+                                {% if i.status == 1 %}
+                                <span class="badge bg-success">{{i.get_status_display}}</span>
+                                {% else %}
+                                <span class="badge bg-danger">{{i.get_status_display}}</span>
+                                {% endif %}
+                            </td>
+                            <td class="text-center">
+
+                                <a href="{% url 'applicants:edit-applicant' i.id %}" class="text-success">
+                                    <i class="ri-pencil-fill"></i>
+                                </a>
+
+                                <a href="#" class="text-danger">
+                                    <i class="ri-delete-bin-6-line"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            {% else %}
+            <div class="card-header">
+                <h4 class="text-center">No record found</h4>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock body %}

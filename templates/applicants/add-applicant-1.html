@@ -1,0 +1,200 @@
+{% extends 'base.html' %} {% load static %} {% load crispy_forms_tags %}
+{% block title %} Add Applicant {% endblock title %}
+
+
+{% block body %}
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0">Add Applicant</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'settings:dashboard' %}">Dashboard</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'applicants:applicants' %}">Applicants</a>
+                    </li>
+                    <li class="breadcrumb-item">Add Applicant</li>
+                    <li class="breadcrumb-item active">General Information</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+{% for message in messages %}
+<div class="alert alert-{{message.tags}}" role="alert">
+    <strong>{{message}}</strong>
+</div>
+{% endfor %}
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title mb-0">Applicant Form</h4>
+            </div><!-- end card header -->
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="card-body form-steps">
+                    <div class="step-arrow-nav mb-4">
+                        <ul class="nav nav-pills custom-nav nav-justified" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="steparrow-gen-info-tab"
+                                    data-bs-target="#steparrow-gen-info">General Information</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="steparrow-bank-info-tab"
+                                    data-bs-target="#steparrow-bank-info" type="submit">Bank
+                                    Details</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="steparrow-guarantor-info-tab"
+                                    data-bs-target="#steparrow-guarantor-info" type="submit">Guarantor
+                                    Info</button>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="steparrow-gen-info" role="tabpanel"
+                            aria-labelledby="steparrow-gen-info-tab">
+
+                            <div>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        {{form.status|as_crispy_field}}
+                                    </div>
+                                    <div class="col-lg-4">
+                                        {{form.refrence_number|as_crispy_field}}
+                                    </div>
+                                    <div class="col-lg-4">
+                                        {{form.salutation|as_crispy_field}}
+                                    </div>
+                                    <div class="col-lg-4">
+                                        {{form.name|as_crispy_field}}
+                                    </div>
+                                    <div class="col-lg-4">
+                                        {{form.father_husband_name|as_crispy_field}}
+                                    </div>
+                                    <div class="col-lg-4">
+                                        {{form.mother_name|as_crispy_field}}
+                                    </div>
+                                    <div class="col-lg-4">
+                                        {{form.cnic|as_crispy_field}}
+                                    </div>
+                                    <div class="col-lg-4">
+                                        {{form.dob|as_crispy_field}}
+                                    </div>
+                                    <div class="col-lg-4">
+                                        {{form.gender|as_crispy_field}}
+                                    </div>
+                                    <div class="col-lg-4">
+                                        {{form.marital_status|as_crispy_field}}
+                                    </div>
+                                    <div class="col-lg-4">
+                                        {{form.phone|as_crispy_field}}
+                                    </div>
+                                    <div class="col-lg-4">
+                                        {{form.whatsapp|as_crispy_field}}
+                                    </div>
+                                    <div class="col-lg-4">
+                                        {{form.email|as_crispy_field}}
+                                    </div>
+                                    <div class="col-lg-6">
+                                        {{form.education|as_crispy_field}}
+                                    </div>
+                                    <div class="col-lg-6">
+                                        {{form.education_institute|as_crispy_field}}
+                                    </div>
+                                    <div class="col-lg-6">
+                                        {{form.education_verification|as_crispy_field}}
+                                    </div>
+                                    <div class="col-lg-4">
+                                        {{form.job_status|as_crispy_field}}
+                                    </div>
+                                    <div class="col-lg-4">
+                                        {{form.residence_status|as_crispy_field}}
+                                    </div>
+                                    <div class="col-lg-4">
+                                        {{form.monthly_rent|as_crispy_field}}
+                                    </div>
+                                    <div class="col-lg-10">
+                                        {{form.mailing_address|as_crispy_field}}
+                                    </div>
+                                    <div class="col-lg-2">
+                                        {{form.residing_duration|as_crispy_field}}
+                                    </div>
+                                    <div class="col-lg-12">
+                                        {{form.current_address|as_crispy_field}}
+                                    </div>
+                                    <div class="col-lg-4">
+                                        {{form.profession|as_crispy_field}}
+                                    </div>
+                                    <div class="col-lg-6">
+                                        {{form.organization|as_crispy_field}}
+                                    </div>
+                                    <div class="col-lg-2">
+                                        {{form.organization_type|as_crispy_field}}
+                                    </div>
+                                    <div class="col-lg-4">
+                                        {{form.doj|as_crispy_field}}
+                                    </div>
+                                    <div class="col-lg-4">
+                                        {{form.experience|as_crispy_field}}
+                                    </div>
+                                    <div class="col-lg-4">
+                                        {{form.monthly_income|as_crispy_field}}
+                                    </div>
+                                    <div class="col-lg-6">
+                                        {{form.office_phone|as_crispy_field}}
+                                    </div>
+                                    <div class="col-lg-6">
+                                        {{form.office_email|as_crispy_field}}
+                                    </div>
+                                    <div class="col-lg-12">
+                                        {{form.office_address|as_crispy_field}}
+                                    </div>
+                                    <div class="col-lg-3">
+                                        {{form.previous_loan|as_crispy_field}}
+                                    </div>
+                                    <div class="col-lg-3">
+                                        {{form.previous_loan_deduction|as_crispy_field}}
+                                    </div>
+                                    <div class="col-lg-3">
+                                        {{form.monthly_other_income|as_crispy_field}}
+                                    </div>
+                                    <div class="col-lg-3">
+                                        {{form.monthly_expense|as_crispy_field}}
+                                    </div>
+                                    <div class="col-lg-12">
+                                        {{form.remarks|as_crispy_field}}
+                                    </div>
+                                    <div class="col-lg-12">
+                                        {{form.photo|as_crispy_field}}
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="d-flex align-items-start gap-3 mt-4">
+                                <button type="submit" class="btn btn-success btn-label right ms-auto nexttab
+                                                nexttab" data-nexttab="steparrow-description-info-tab"><i
+                                        class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>Next</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- end tab pane -->
+            </form>
+        </div>
+    </div>
+</div>
+<!-- end col -->
+
+
+{% endblock body %}

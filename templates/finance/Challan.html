@@ -1,0 +1,342 @@
+{% load custom_tags %}
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title> EMI Challan Form</title>
+    <link rel="shortcut icon" type="image/x-icon" href="">
+    <style type="text/css">
+        body {
+            overflow: -moz-scrollbars-vertical;
+            margin: 0;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 12px;
+        }
+
+        @media all {
+            .page-break {
+                display: none;
+            }
+        }
+
+        @media print {
+            .page-break {
+                display: block;
+                page-break-before: always;
+            }
+
+            @page {
+                size: A4 landscape;
+                margin: 4mm 4mm 4mm 4mm;
+            }
+        }
+
+        @media print {
+            body {
+                -webkit-print-color-adjust: exact;
+            }
+        }
+
+        h1 {
+            text-align: left;
+            margin: 0;
+            margin-top: 0;
+            margin-bottom: 0px;
+            font-size: 18px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .spanh1 {
+            font-size: 14px;
+            font-weight: normal;
+            text-transform: none;
+            float: right;
+            margin-top: 5px;
+        }
+
+        h2 {
+            text-align: left;
+            margin: 0;
+            margin-top: 0;
+            margin-bottom: 1px;
+            font-size: 18px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .spanh2 {
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: none;
+        }
+
+        h3 {
+            text-align: center;
+            margin: 0;
+            margin-top: 0;
+            margin-bottom: 1px;
+            font-size: 18px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        h4 {
+            text-align: center;
+            margin: 0;
+            margin-bottom: 1px;
+            font-weight: normal;
+            font-size: 15px;
+            font-weight: 700;
+            word-spacing: 0.1em;
+        }
+
+        td {
+            padding-bottom: 4px;
+        }
+
+        .line1 {
+            border: 1px solid #333;
+            width: 100%;
+            margin-top: 2px;
+            margin-bottom: 5px;
+        }
+
+        .payable {
+            border: 2px solid #000;
+            padding: 2px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .paid:after {
+            content: "PAID";
+            position: absolute;
+            top: 30%;
+            left: 20%;
+            z-index: 1;
+            -webkit-transform: rotate(-5deg);
+            /* Safari */
+            -moz-transform: rotate(-5deg);
+            /* Firefox */
+            -ms-transform: rotate(-5deg);
+            /* IE */
+            -o-transform: rotate(-5deg);
+            /* Opera */
+            transform: rotate(-5deg);
+            font-size: 250px;
+            color: green;
+            background: #fff;
+            border: solid 4px yellow;
+            padding: 5px;
+            border-radius: 5px;
+            zoom: 1;
+            filter: alpha(opacity=50);
+            opacity: 0.1;
+            -webkit-text-shadow: 0 0 2px #c00;
+            text-shadow: 0 0 2px #c00;
+            box-shadow: 0 0 2px #c00;
+        }
+
+        .copy {
+            float: right;
+            margin-top: 10px;
+            padding: 5px 15px;
+            background-color: #000 !important;
+            color: #fff !important;
+        }
+
+        .table-data {
+            border-right: 1px dashed #333;
+        }
+
+        .heading {
+            margin: 1rem 0;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .span {
+            font-size: 14px;
+            font-weight: normal;
+            text-transform: none;
+        }
+
+        .heading-2 {
+            margin: 0.5rem 0;
+            font-size: 16px;
+        }
+
+        .border-l-r {
+            border-left: 1.5px solid #000;
+            border-right: 1.5px solid #000;
+        }
+    </style>
+    <link rel="shortcut icon" href="https://almawakhat.com/images/favicon.png">
+</head>
+
+<body>
+    <table width="99%" border="0" class="page" cellpadding="5" cellspacing="10" align="center"
+        style="border-collapse:collapse; margin-top:0px;">
+        <tr>
+
+            {% for n in range %}
+            <td width="341" valign="top" class="table-data">
+                <img src="{{profile.logo.url}}" />
+
+                {% if n == 0 %}
+                <h5 class="copy">BANK COPY</h5>
+                {% elif n == 1 %}
+                <h5 class="copy">OFFICE COPY</h5>
+                {% else %}
+                <h5 class="copy">CUSTOMER COPY</h5>
+                {% endif %}
+
+                <table style="border-collapse:collapse; margin-bottom: 0.4rem;" " width=" 100% " border="
+                    0 " cellpadding=" 0 " cellspacing=" 0 ">
+                    <div class=" heading ">
+                        <b>CHALLAN FORM <span class=" span ">(Microfinance Facility)</span></b>
+                    </div>
+                    <tr>
+                        <td width=" 30 " style=" text-align:left; ">Ch #:</td>
+                        <td width=" 150 "><span style=" width:100%;display:inline-block; overflow:hidden;
+                    border-bottom:1px solid; ">  {{challan.challan_number}} </span></td>
+                        <td width=" 75 " style=" text-align:right; ">Issue Date:</td>
+                        <td style=" text-align:right; text-decoration:underline; ">{{challan.issue_date|date:"d-m-Y"}}</td>
+                    </tr>
+                </table>
+                <table style=" border-collapse:collapse; margin-bottom: 0.4rem; " width=" 100% " border="
+                    0 " cellpadding=" 0 " cellspacing=" 0 ">
+                    <h4 style=" text-align:left; margin-bottom:5px; text-decoration:underline; ">BANK ACCOUNTS</h4>
+
+                    
+                    {% for i in bank_accounts %}
+                    <tr>
+                        <th style=" text-align:left ">Bank Name: {{i.name}}</th>
+                        <td></td>
+                        <th style=" text-align:left ">Account Number: {{i.account_number}}</th>
+                        <td></td>
+                    </tr>
+                    {% endfor %}
+
+                </table>
+                <table style=" border-collapse:collapse; margin-bottom: 0.4rem; " width=" 100% " border="
+                    0 " cellpadding=" 0 " cellspacing=" 0 ">
+                    <tr>
+                        <td width=" 60 " style=" text-align:left; ">Voucher #:</td>
+                        <td><span style=" width:65px; display:inline-block; overflow:hidden; border-bottom:1px solid; "> 0000 </span></td>
+                        <td width=" 40 " style=" text-align:right; ">Ref #:</td>
+                        <td><span style=" width:65px;display:inline-block; overflow:hidden; border-bottom:1px solid; ">  {{challan.applicant.refrence_number}} </span></td>
+                        <td width=" 60 " style=" text-align:right; ">Due Date:</td>
+                        <td style=" text-align:right; text-decoration:underline; ">{{challan.due_date|date:"d-m-Y"}}</td>
+                    </tr>
+                </table>
+                <table style=" border-collapse:collapse; margin-bottom: 0.4rem; " width=" 100% " border="
+                    0 " cellpadding=" 0 " cellspacing=" 0 ">
+                    <tr>
+                        <td width=" 35 " style=" text-align:left; ">Name: </td>
+                        <td><span style=" width: 100%; display:inline-block; overflow:hidden; border-bottom:1px solid; "> {{challan.applicant.name}} </span></td>
+                    </tr>
+                </table>
+                <table style=" border-collapse:collapse; margin-bottom: 0.4rem; " width=" 100% " border="
+                    0 " cellpadding=" 0 " cellspacing=" 0 ">
+                    <tr>
+                        <td width=" 100 " style=" text-align:left; ">Name of Financing: </td>
+                        <td><span style=" width: 100%; display:inline-block; overflow:hidden; border-bottom:1px solid; "> {{challan.product.product.name}} </span></td>
+                    </tr>
+                </table>
+                <table style=" border-collapse:collapse; border:1px solid #666; " cellpadding=" 2 " cellspacing="
+                    2 " border=" 1 " width=" 100% ">
+
+                    
+                    
+                        
+                    <tr>
+                        <td style=" font-weight:bold; border: 1.5px solid #000; " width=" 250 ">PARTICULARS</td>
+                        <td style=" font-weight:bold; border: 1.5px solid #000; ">Rs.</td>
+                    </tr>
+
+                    {% for i in challan.challan_details.all %}
+                    <tr>
+                        <td class=" border-l-r ">{{i.particular}}</td>
+                        <td class=" border-l-r " style=" text-align: right">
+
+                    {% if i.amount != 0 %}
+                    {{i.amount}}
+                    {% else %}
+                    -
+                    {% endif %}
+
+
+            </td>
+        </tr>
+        {% endfor %}
+
+
+        <tr>
+            <td style=" text-align:right; font-weight:bold; border:1.5px solid #000; ">Payable Till Due Date</td>
+            <td style=" text-align:right; font-weight:bold; border:1.5px solid #000; ">{{challan.payable_till_due_date}}
+            </td>
+        </tr>
+        <tr>
+            <td style=" text-align:right; font-weight:bold; border:1.5px solid #000; ">Payable After Due Date</td>
+            <td style=" text-align:right; font-weight:bold; border:1.5px solid #000; ">
+                {{challan.payable_after_due_date}}</td>
+        </tr>
+    </table>
+
+    <span style=" font-size:10px; float:left; margin-top:15px; ">Printed By: {{request.user.first_name}}
+        {{request.user.last_name}}</span>
+    <span style=" font-size:10px; float:right; margin:15px 0; ">Printed Date: {% now 'd/m/Y' %}</span>
+
+    <table width=" 100% " border=" 0 " style=" border-collapse:collapse; margin-top:
+                    0.4rem; " cellpadding=" 0 " cellspacing=" 5 ">
+        <tr>
+            <td width=" 90 ">Amount in Words:</td>
+            <td><span style=" width:100%; display:inline-block; overflow:hidden; border-bottom:1px solid; ">
+                    {% amount_to_words challan.payable_till_due_date as words %} {{words|title}} </span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan=" 2 "><span style=" width:100%; display:inline-block; overflow:hidden;
+                    border-bottom:1px solid; "> </span></td>
+        </tr>
+    </table>
+    <table width=" 100% " border=" 0 " style=" border-collapse:collapse; margin-top:
+                    0.4rem; " cellpadding=" 0 " cellspacing=" 5 ">
+        <tr>
+            <td colspan=" 2 " style=" text-decoration: underline; font-weight: bold; ">Note:</td>
+        </tr>
+        <tr>
+            <td>1.</td>
+            <td>Payment can be made through Cash/Online/Pay Order/Cheques.</td>
+        </tr>
+        <tr>
+            <td>2.</td>
+            <td>In case of any delay, Rs.1,000/- will be charged.</td>
+        </tr>
+        <tr>
+            <td colspan=" 2 " style=" border-top: 1.5px solid #000; "></td>
+        </tr>
+        <tr>
+            <td colspan=" 2 " style=" text-align:center; font-size:9px; ">Al-Mawakhat Microfinance Company Limited.</td>
+        </tr>
+        <tr>
+            <td colspan=" 2 " style=" text-align:center; font-size:9px; ">FB/3, 2nd Floor, Awami Complex, New Garden
+                Town, Lahore. 042-35831157-58</td>
+        </tr>
+    </table>
+    </td>
+    {% endfor %}
+
+    </tr>
+    </table>
+</body>
+<script type=" text/javascript " language=" javascript1.2 ">
+    if (typeof (window.print) != " undefined ") {
+        window.print();
+    }
+</script>
+
+</html>

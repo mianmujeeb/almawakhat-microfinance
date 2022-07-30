@@ -1,0 +1,189 @@
+{% extends 'base.html' %} {% load static %} {% load crispy_forms_tags %}
+
+
+{% block title %} {{instance.first_name}} {{instance.last_name}} {% endblock title %}
+
+
+
+{% block body %}
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0">{{instance.first_name}} {{instance.last_name}} </h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="{% url 'settings:dashboard' %}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'settings:users' %}">Users</a></li>
+                    <li class="breadcrumb-item active">{{instance.first_name}} {{instance.last_name}} </li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+
+{% for message in messages %}
+<div class=" alert alert-{{message.tags}} mb-3" role="alert">
+    <strong>{{message}}</strong>
+</div>
+{% endfor %}
+
+<form method="POST">
+    {% csrf_token %}
+
+    <div class="row">
+
+        <div class="col-md-9">
+
+            <div class="card">
+                <div class="card-header d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">{{instance.first_name}} {{instance.last_name}}</h4>
+                </div>
+                <div class="card-body">
+
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-pills nav-justified mb-3" role="tablist">
+                        <li class="nav-item waves-effect waves-light">
+                            <a class="nav-link active" data-bs-toggle="tab" href="#pill-justified-general" role="tab">
+                                General
+                            </a>
+                        </li>
+                        <li class="nav-item waves-effect waves-light">
+                            <a class="nav-link" data-bs-toggle="tab" href="#pill-justified-personal-info" role="tab">
+                                Personal Info
+                            </a>
+                        </li>
+                        <li class="nav-item waves-effect waves-light">
+                            <a class="nav-link" data-bs-toggle="tab" href="#pill-justified-permissions" role="tab">
+                                Group & Permissions
+                            </a>
+                        </li>
+                        <li class="nav-item waves-effect waves-light">
+                            <a class="nav-link" data-bs-toggle="tab" href="#pill-justified-dates" role="tab">
+                                Important Dates
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content text-muted">
+
+                        <div class="tab-pane active" id="pill-justified-general" role="tabpanel">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0">
+                                    <i class="ri-checkbox-circle-fill text-success"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-2">
+                                    Raw denim you probably haven't heard of them jean shorts Austin.
+                                    Nesciunt tofu stumptown aliqua, retro synth master cleanse.
+                                </div>
+                            </div>
+                            <div class="d-flex mt-2">
+                                <div class="flex-shrink-0">
+                                    <i class="ri-checkbox-circle-fill text-success"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-2">
+                                    Too much or too little spacing, as in the example below, can make things unpleasant
+                                    for the reader. The goal is to make your text as comfortable to read as possible.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane" id="pill-justified-personal-info" role="tabpanel">
+                            <div class="card-body">
+
+                                <div class="mb-3 row">
+                                    <label for="first_name" class="col-sm-2 col-form-label">First Name:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="first_name" name="first_name">
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 row">
+                                    <label for="last_name" class="col-sm-2 col-form-label">Last Name:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="last_name" name="last_name">
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 row">
+                                    <label for="email" class="col-sm-2 col-form-label">Email:</label>
+                                    <div class="col-sm-10">
+                                        <input type="email" class="form-control" id="email" name="email">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="tab-pane" id="pill-justified-permissions" role="tabpanel">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0">
+                                    <i class="ri-checkbox-circle-fill text-success"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-2">
+                                    Each design is a new, unique piece of art birthed into this world, and while you
+                                    have the opportunity to be creative and make your own style choices.
+                                </div>
+                            </div>
+                            <div class="d-flex mt-2">
+                                <div class="flex-shrink-0">
+                                    <i class="ri-checkbox-circle-fill text-success"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-2">
+                                    For that very reason, I went on a quest and spoke to many different professional
+                                    graphic designers and asked them what graphic design tips they live.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="pill-justified-dates" role="tabpanel">
+                            <div class="d-flex mt-2">
+                                <div class="flex-shrink-0">
+                                    <i class="ri-checkbox-circle-fill text-success"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-2">
+                                    For that very reason, I went on a quest and spoke to many different professional
+                                    graphic designers and asked them what graphic design tips they live.
+                                </div>
+                            </div>
+                            <div class="d-flex mt-2">
+                                <div class="flex-shrink-0">
+                                    <i class="ri-checkbox-circle-fill text-success"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-2">
+                                    After gathering lots of different opinions and graphic design basics, I came up with
+                                    a list of 30 graphic design tips that you can start implementing.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-outline-primary d-grid mb-2">Update</button>
+                    </div>
+                    <a href="{% url 'settings:users' %}" class="btn btn-outline-secondary d-grid">Cancel</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</form>
+
+
+
+{% endblock body%}

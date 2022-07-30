@@ -1,0 +1,564 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en" data-layout="horizontal" data-layout-style="" data-layout-position="fixed" data-topbar="dark">
+
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>{% block title %} {% endblock title %} | Al-Mawakhat Microfinance</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="al mawakhat microfinance" name="description" />
+    <meta content="Themesbrand" name="author" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="https://almawakhat.com/images/favicon.png">
+
+    <!-- ======== JQuery ======= -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+    <!-- plugin css -->
+    <link href="{% static 'libs/jsvectormap/css/jsvectormap.min.css' %}" rel="stylesheet" type="text/css" />
+
+    <!-- dropzone css -->
+    <link rel="stylesheet" href="{% static 'libs/dropzone/dropzone.css' %}" type="text/css" />
+
+    <!-- Filepond css -->
+    <link rel="stylesheet" href="{% static 'libs/filepond/filepond.min.css' %}" type="text/css" />
+
+    <link rel="stylesheet"
+        href="{% static 'libs/filepond-plugin-image-preview/filepond-plugin-image-preview.min.css' %}">
+
+    <!-- select 2 -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <!-- Layout config Js -->
+    <script src="{% static 'js/layout.js' %}"></script>
+    <!-- Bootstrap Css -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="{% static 'css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="{% static 'css/app.min.css' %}" rel="stylesheet" type="text/css" />
+    <!-- custom Css-->
+    <link href="{% static 'css/custom.min.css' %}" rel="stylesheet" type="text/css" />
+
+    <!-- Sweet Alert css-->
+    <link href="{% static 'libs/sweetalert2/sweetalert2.min.css' %}" rel="stylesheet" type="text/css" />
+
+
+</head>
+
+<body>
+
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+
+        <header id="page-topbar">
+            <div class="layout-width">
+                <div class="navbar-header">
+                    <div class="d-flex">
+                        <!-- LOGO -->
+                        <div class="navbar-brand-box horizontal-logo">
+                            <a href="{% url 'settings:dashboard' %}" class="logo logo-dark">
+                                <span class="logo-sm">
+                                    <img src="{% static 'images/logo-light.png' %}" alt="" height="50">
+                                </span>
+                                <span class="logo-lg">
+                                    <img src="{% static 'images/logo-light.png' %}" alt="" height="6    0">
+                                </span>
+                            </a>
+
+                            <a href="{% url 'settings:dashboard' %}" class="logo logo-light">
+                                <span class="logo-sm">
+                                    <img src="{% static 'images/logo-light.png' %}" alt="" height="50">
+                                </span>
+                                <span class="logo-lg">
+                                    <img src="{% static 'images/logo-light.png' %}" alt="" height="60">
+                                </span>
+                            </a>
+                        </div>
+
+                        <button type="button"
+                            class="btn btn-sm px-3 fs-16 header-item vertical-menu-btn topnav-hamburger"
+                            id="topnav-hamburger-icon">
+                            <span class="hamburger-icon">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </span>
+                        </button>
+
+                    </div>
+
+                    <div class="d-flex align-items-center">
+
+
+                        <div class="dropdown ms-sm-3 header-item topbar-user">
+                            <button type="button" class="btn" id="page-header-user-dropdown" data-bs-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <span class="d-flex align-items-center">
+                                    <img class="rounded-circle header-profile-user"
+                                        src="{% static 'images/users/avatar.jpg' %}" alt="Header Avatar">
+                                    <span class="text-start ms-xl-2">
+                                        <span
+                                            class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{request.user.first_name}}
+                                            {{request.user.last_name}}</span>
+                                    </span>
+                                </span>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <!-- item-->
+                                <h6 class="dropdown-header">Welcome {{request.user.first_name}}
+                                    {{request.user.last_name}}!</h6>
+                                <a class="dropdown-item" href="#"><i
+                                        class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span
+                                        class="align-middle">Profile</span></a>
+                                <a class="dropdown-item" href="{% url 'settings:logout' %}"><i
+                                        class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span
+                                        class="align-middle" data-key="t-logout">Logout</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- ========== App Menu ========== -->
+        <div class="app-menu navbar-menu">
+            <!-- LOGO -->
+            <div class="navbar-brand-box">
+                <!-- Dark Logo-->
+                <a href="{% url 'settings:dashboard' %}" class="logo logo-dark">
+                    <span class="logo-sm">
+                        <img src="{% static 'images/logo-sm.png' %}" alt="" height="22">
+                    </span>
+                    <span class="logo-lg">
+                        <img src="{% static 'images/logo-dark.png' %}" alt="" height="17">
+                    </span>
+                </a>
+                <!-- Light Logo-->
+                <a href="{% url 'settings:dashboard' %}" class="logo logo-light">
+                    <span class="logo-sm">
+                        <img src="{% static 'images/logo-sm.png' %}" alt="" height="22">
+                    </span>
+                    <span class="logo-lg">
+                        <img src="{% static 'images/logo-light.png' %}" alt="" height="17">
+                    </span>
+                </a>
+                <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover"
+                    id="vertical-hover">
+                    <i class="ri-record-circle-line"></i>
+                </button>
+            </div>
+
+            <div id="scrollbar">
+                <div class="container-fluid">
+
+                    <div id="two-column-menu"></div>
+
+                    <ul class="navbar-nav" id="navbar-nav">
+                        <li class="menu-title"><span data-key="t-menu">Menu</span></li>
+
+                        <!-- Dashboard  -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'settings:dashboard' %}" aria-expanded="false"
+                                aria-controls="sidebarDashboards">
+                                <i class="las la-chart-bar"></i> <span data-key="t-dashboards">Dashboard</span>
+                            </a>
+                        </li>
+
+                        <!-- Finance -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'settings:dashboard' %}" data-bs-toggle="collapse"
+                                role="button" aria-expanded="false" aria-controls="sidebarDashboards">
+                                <i class=" ri-team-line"></i> <span data-key="t-dashboards">Applicants</span>
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarDashboards">
+                                <ul class="nav nav-sm flex-column">
+
+                                    <!-- Currencies settings -->
+                                    <li class="nav-item">
+                                        <a class="nav-link menu-link" href="{% url 'applicants:add-applicant-1' %}"
+                                            aria-expanded="false">
+                                            <i class=" ri-user-add-line"></i> <span data-key="t-multi-level">Add
+                                                Applicant</span>
+                                        </a>
+                                    </li>
+
+                                    <!-- Applicants list -->
+                                    <li class="nav-item">
+                                        <a class="nav-link menu-link" href="{% url 'applicants:applicants' %}"
+                                            aria-expanded="false">
+                                            <i class="ri-list-check-2"></i>Applicants List</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <!-- Applicants -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-bs-toggle="collapse" role="button" aria-expanded="false"
+                                aria-controls="sidebarDashboards">
+                                <i class="ri-wallet-3-line"></i> <span data-key="t-dashboards">Finance</span>
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarDashboards">
+                                <ul class="nav nav-sm flex-column">
+
+                                    <!-- Currencies settings -->
+                                    <li class="nav-item">
+                                        <a class="nav-link menu-link" href="{% url 'finance:financing-modes' %}"
+                                            aria-expanded="false">
+                                            <i class="ri-percent-line"></i> <span data-key="t-multi-level">Financing
+                                                Modes</span>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link menu-link" href="#sidebarMultilevel"
+                                            data-bs-toggle="collapse" role="button" aria-expanded="false"
+                                            aria-controls="sidebarMultilevel">
+                                            <i class=" ri-settings-5-line"></i> <span data-key="t-multi-level"> Challan
+                                                Settings</span>
+                                        </a>
+                                        <div class="collapse menu-dropdown" id="sidebarMultilevel">
+                                            <ul class="nav nav-sm flex-column">
+
+                                                <li class="nav-item">
+                                                    <a class="nav-link menu-link"
+                                                        href="{% url 'finance:emi-challan-profile' %}"
+                                                        aria-expanded="false">
+                                                        <i class="ri-profile-line"></i> <span data-key="t-multi-level">
+                                                            Profile</span>
+                                                    </a>
+                                                </li>
+
+                                                <li class="nav-item">
+                                                    <a class="nav-link menu-link"
+                                                        href="{% url 'finance:emi-challan-particulars' %}"
+                                                        aria-expanded="false">
+                                                        <i class="ri-list-check-2"></i> <span data-key="t-multi-level">
+                                                            Particulars</span>
+                                                    </a>
+                                                </li>
+
+                                                <li class="nav-item">
+                                                    <a class="nav-link menu-link"
+                                                        href="{% url 'finance:emi-challan-bank-accounts' %}"
+                                                        aria-expanded="false">
+                                                        <i class="ri-bank-line"></i> <span data-key="t-multi-level">
+                                                            Bank Accounts</span>
+                                                    </a>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </li>
+
+
+
+                                </ul>
+                            </div>
+                        </li>
+
+                        <!-- Inventory -->
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false"
+                                aria-controls="sidebarDashboards">
+                                <i class="las la-store-alt"></i> <span data-key="t-dashboards">Inventory</span>
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarDashboards">
+                                <ul class="nav nav-sm flex-column">
+
+                                    <!-- Product categories -->
+                                    <li class="nav-item">
+                                        <a class="nav-link menu-link" href="{% url 'inventory:product-categories' %}"
+                                            aria-expanded="false">
+                                            <i class="las la-stream"></i> <span data-key="t-multi-level">Product
+                                                Categories</span>
+                                        </a>
+                                    </li>
+
+                                    <!-- Products -->
+                                    <li class="nav-item">
+                                        <a class="nav-link menu-link" href="{% url 'inventory:products' %}"
+                                            aria-expanded="false">
+                                            <i class="las la-shopping-cart"></i> <span
+                                                data-key="t-multi-level">Products</span>
+                                        </a>
+                                    </li>
+
+
+                                    <!-- Products -->
+                                    <li class="nav-item">
+                                        <a class="nav-link menu-link" href="{% url 'inventory:products' %}"
+                                            aria-expanded="false">
+                                            <i class="las la-shopping-bag"></i> <span
+                                                data-key="t-multi-level">Vendors</span>
+                                        </a>
+                                    </li>
+
+
+                                </ul>
+                            </div>
+
+                        </li>
+
+                        <!-- settings -->
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false"
+                                aria-controls="sidebarDashboards">
+                                <i class=" ri-settings-5-line"></i> <span data-key="t-dashboards">Settings</span>
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarDashboards">
+                                <ul class="nav nav-sm flex-column">
+
+                                    <!-- Currencies settings -->
+                                    <li class="nav-item">
+                                        <a class="nav-link menu-link" href="{% url 'settings:currencies' %}"
+                                            aria-expanded="false">
+                                            <i class="ri-currency-fill"></i> <span
+                                                data-key="t-multi-level">Currencies</span>
+                                        </a>
+                                    </li>
+
+                                    <!-- Area settings -->
+                                    <li class="nav-item">
+                                        <a class="nav-link menu-link" href="#sidebarMultilevel"
+                                            data-bs-toggle="collapse" role="button" aria-expanded="false"
+                                            aria-controls="sidebarMultilevel">
+                                            <i class="ri-treasure-map-line"></i> <span data-key="t-multi-level">Area
+                                                Settings</span>
+                                        </a>
+                                        <div class="collapse menu-dropdown" id="sidebarMultilevel">
+                                            <ul class="nav nav-sm flex-column">
+
+
+                                                <!-- Region settings -->
+                                                <li class="nav-item">
+                                                    <a href="{% url 'settings:regions' %}" class="nav-link"
+                                                        aria-expanded="false" aria-controls="sidebarRegions"
+                                                        data-key="t-level-1.2"> <i class=" ri-list-check-2"></i>
+                                                        Regions
+                                                    </a>
+                                                </li>
+
+                                                <!-- countries settings -->
+                                                <li class="nav-item">
+                                                    <a href="{% url 'settings:countries' %}" class="nav-link"
+                                                        aria-expanded="false" aria-controls="sidebarRegions"
+                                                        data-key="t-level-1.2"> <i class=" ri-list-check-2"></i>
+                                                        Countries
+                                                    </a>
+                                                </li>
+
+                                                <!-- States settings -->
+                                                <li class="nav-item">
+                                                    <a href="{% url 'settings:states' %}" class="nav-link"
+                                                        aria-expanded="false" aria-controls="sidebarRegions"
+                                                        data-key="t-level-1.2"> <i class=" ri-list-check-2"></i>
+                                                        States
+                                                    </a>
+                                                </li>
+
+                                                <!-- Sub States settings -->
+                                                <li class="nav-item">
+                                                    <a href="{% url 'settings:sub-states' %}" class="nav-link"
+                                                        aria-expanded="false" aria-controls="sidebarRegions"
+                                                        data-key="t-level-1.2"> <i class=" ri-list-check-2"></i>
+                                                        Sub States
+                                                    </a>
+                                                </li>
+
+                                                <!-- Cities settings -->
+                                                <li class="nav-item">
+                                                    <a href="{% url 'settings:cities' %}" class="nav-link"
+                                                        aria-expanded="false" aria-controls="sidebarRegions"
+                                                        data-key="t-level-1.2"> <i class=" ri-list-check-2"></i>
+                                                        Cities
+                                                    </a>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </li>
+
+                                    <!-- users management -->
+                                    <li class="nav-item">
+                                        <a class="nav-link menu-link" href="#sidebarMultilevel"
+                                            data-bs-toggle="collapse" role="button" aria-expanded="false"
+                                            aria-controls="sidebarMultilevel">
+                                            <i class=" ri-group-2-line"></i> <span data-key="t-multi-level">Users</span>
+                                        </a>
+                                        <div class="collapse menu-dropdown" id="sidebarMultilevel">
+                                            <ul class="nav nav-sm flex-column">
+
+
+                                                <!-- Region settings -->
+                                                <li class="nav-item">
+                                                    <a href="{% url 'settings:regions' %}" class="nav-link"
+                                                        aria-expanded="false" aria-controls="sidebarRegions"
+                                                        data-key="t-level-1.2"> <i class="ri-user-add-line"></i>
+                                                        Add User
+                                                    </a>
+                                                </li>
+
+                                                <!-- countries settings -->
+                                                <li class="nav-item">
+                                                    <a href="{% url 'settings:users' %}" class="nav-link"
+                                                        aria-expanded="false" aria-controls="sidebarRegions"
+                                                        data-key="t-level-1.2"> <i class=" ri-list-check-2"></i>
+                                                        Users List
+                                                    </a>
+                                                </li>
+
+
+                                            </ul>
+                                        </div>
+                                    </li>
+
+                                    <!-- group management  -->
+                                    <li class="nav-item">
+                                        <a class="nav-link menu-link" href="#sidebarMultilevel"
+                                            data-bs-toggle="collapse" role="button" aria-expanded="false"
+                                            aria-controls="sidebarMultilevel">
+                                            <i class="ri-team-line"></i> <span data-key="t-multi-level">Groups</span>
+                                        </a>
+                                        <div class="collapse menu-dropdown" id="sidebarMultilevel">
+                                            <ul class="nav nav-sm flex-column">
+
+
+                                                <!-- Region settings -->
+                                                <li class="nav-item">
+                                                    <a href="{% url 'settings:regions' %}" class="nav-link"
+                                                        aria-expanded="false" aria-controls="sidebarRegions"
+                                                        data-key="t-level-1.2"> <i class="ri-user-add-line"></i>
+                                                        Add Group
+                                                    </a>
+                                                </li>
+
+                                                <!-- countries settings -->
+                                                <li class="nav-item">
+                                                    <a href="{% url 'settings:countries' %}" class="nav-link"
+                                                        aria-expanded="false" aria-controls="sidebarRegions"
+                                                        data-key="t-level-1.2"> <i class=" ri-list-check-2"></i>
+                                                        Groups List
+                                                    </a>
+                                                </li>
+
+
+                                            </ul>
+                                        </div>
+                                    </li>
+
+
+                                </ul>
+                            </div>
+
+                        </li>
+
+
+                    </ul>
+                </div>
+            </div> <!-- Sidebar -->
+        </div>
+    </div>
+    <!-- Left Sidebar End -->
+    <!-- Vertical Overlay-->
+    <div class="vertical-overlay"></div>
+
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="main-content">
+
+        <div class="page-content">
+            <div class="container-fluid">
+
+
+
+                {% block body %} {% endblock body %}
+
+
+            </div>
+            <!-- container-fluid -->
+        </div>
+        <!-- End Page-content -->
+
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <script>
+                            document.write(new Date().getFullYear())
+                        </script> © ABC.
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="text-sm-end d-none d-sm-block">
+                            Design & Develop by ABC
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <!-- end main content-->
+
+    </div>
+    <!-- END layout-wrapper -->
+
+    <script>
+        $(".alert").fadeTo(4000, 1000).slideUp(1000, function () {
+            $(".alert").slideUp(1000);
+        });
+    </script>
+
+
+    <!-- JAVASCRIPT -->
+    <script src="{% static 'libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+    <script src="{% static 'libs/simplebar/simplebar.min.js' %}"></script>
+
+    <script src="{% static 'libs/node-waves/waves.min.js' %}"></script>
+
+    <script src="{% static 'libs/feather-icons/feather.min.js' %}"></script>
+
+    <script src="{% static 'js/pages/plugins/lord-icon-2.1.0.js' %}"></script>
+
+    <script src="{% static 'js/plugins.js' %}"></script>
+
+    <!-- Dashboard init -->
+    <script src="{% static 'js/pages/dashboard-analytics.init.js' %}"></script>
+
+    <!-- dropzone min -->
+    <script src="{% static 'libs/dropzone/dropzone-min.js' %}"></script>
+    <!-- filepond js -->
+    <script src="{% static 'libs/filepond/filepond.min.js' %}"></script>
+
+    <script src="{% static 'libs/filepond-plugin-image-preview/filepond-plugin-image-preview.min.js' %}"></script>
+
+    <script src="{% static 'libs/filepond-plugin-file-validate-size/filepond-plugin-file-validate-size.min.js' %}">
+    </script>
+
+    <script
+        src="{% static 'libs/filepond-plugin-image-exif-orientation/filepond-plugin-image-exif-orientati' %}on.min.js">
+    </script>
+
+    <script src="{% static 'libs/filepond-plugin-file-encode/filepond-plugin-file-encode.min.js' %}"></script>
+
+    <script src="{% static 'js/pages/form-file-upload.init.js' %}"></script>
+
+    <!-- form wizard init -->
+    <script src="{% static 'js/pages/form-wizard.init.js' %}"></script>
+
+    <!-- App js -->
+    <script src="{% static 'js/app.js' %}"></script>
+
+    <script src="{% static 'js/layout.js' %}"></script>
+</body>
+
+
+</html>

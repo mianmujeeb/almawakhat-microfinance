@@ -1,0 +1,47 @@
+<input type="hidden" name="rent" id="id_rent_product" value="{{applicant_product.rent}}">
+<input type="hidden" name="tenure" id="id_tenure_product" value="{{applicant_product.tenure}}">
+
+
+<div class="col-md-6">
+    <div class="mb-3">
+        <label for="" class="form-label">Previous Outstanding Amount</label>
+        <input type="number" name="previous_outstanding_amount" id="id_previous_outstanding_amount" class="form-control"
+            value="{{previous_outstanding}}" readonly>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="mb-3">
+        <label for="" class="form-label">Equal Monthly Installment</label>
+        <input type="number" name="equal_monthly_installment" id="id_equal_monthly_installment" class="form-control"
+            value="{{applicant_product.emi}}">
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="mb-3">
+        <label for="" class="form-label">Service Charges</label>
+        <input type="text" name="service_charges" id="id_service_charges" class="form-control"
+            value="{{applicant_product.emi}}" readonly>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="mb-3">
+        <label for="" class="form-label">Principal Repayment</label>
+        <input type="number" name="principal_repayment" id="id_principal_repayment" class="form-control"
+            value="{{applicant_product.emi}}" readonly>
+    </div>
+</div>
+
+<div class="col-md-6">
+    <div class="mb-3">
+        <label for="" class="form-label">Security Amount</label>
+        <input type="number" name="security_amount" id="id_security_amount" class="form-control">
+    </div>
+</div>
+
+
+
+<div class="mb-3">
+    <label for="" class="form-label">Principal Outstanding Amount</label>
+    <input type="number" name="principal_outstanding_amount" id="id_principal_outstanding_amount" class="form-control"
+        value="{{principal_outstanding}}" readonly>
+</div>
